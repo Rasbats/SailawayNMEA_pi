@@ -145,9 +145,9 @@ void Dlg::LoadBoats() {
 	wxString myname;
     boat* myNewBoat = new boat;
 
-	wxString key = "757a733e42e9efc9c9bd3b6e503721a4";
+	wxString key = "";
 	wxString andusrname = "&usrname=";
-	wxString usrname = m_textCtrlUser->GetValue(); // "bats";
+	wxString usrname = m_textCtrlUser->GetValue();
 	if (usrname == "") {
 		wxMessageBox("No user name entered");
 		return;
