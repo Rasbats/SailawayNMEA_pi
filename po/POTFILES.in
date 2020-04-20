@@ -1,0 +1,3 @@
+src/SailawayNMEA_pi.cpp
+src/SailawayNMEAgui.cpp
+src/SailawayNMEAgui_impl.cpp
