@@ -1,11 +1,11 @@
 /******************************************************************************
  *
  * Project:  OpenCPN
- * Purpose:  SAILAWAYNMEA Plugin
+ * Purpose:  SailawayNMEA Plugin
  * Author:   Mike Rossiter
  *
  ***************************************************************************
- *   Copyright (C) 2019 by Mike Rossiter                                   *
+ *   Copyright (C) 2020 by Mike Rossiter                                   *
  *   $EMAIL$                                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -69,7 +69,7 @@ void Dlg::OnInformation(wxCommandEvent& event)
 {
 	
 	wxString infolocation = *GetpSharedDataLocation()
-		+ "plugins/SailawayNMEA_pi/data/pictures/" + "SAILAWAYNMEA.html";
+		+ "plugins/SailawayNMEA_pi/data/pictures/" + "SailawayNMEA.html";
 	wxLaunchDefaultBrowser("file:///" + infolocation);
 
 }
@@ -123,18 +123,8 @@ wxString Dlg::StandardPath()
 	return stdPath;
 }
 
-
-
-void Dlg::OnTestServer(wxCommandEvent& event) {
-
-	wxMessageBox("here");
-	LoadBoats();
-
-}
-
 void Dlg::OnLoadBoats(wxCommandEvent& event) {
 
-	//wxMessageBox("here");
 	LoadBoats();
 
 }
@@ -145,9 +135,9 @@ void Dlg::LoadBoats() {
 	wxString myname;
     boat* myNewBoat = new boat;
 
-	wxString key = "";
+	wxString key = "757a733e42e9efc9c9bd3b6e503721a4";
 	wxString andusrname = "&usrname=";
-	wxString usrname = m_textCtrlUser->GetValue();
+	wxString usrname = m_textCtrlUser->GetValue(); // "bats";
 	if (usrname == "") {
 		wxMessageBox("No user name entered");
 		return;
@@ -161,8 +151,7 @@ void Dlg::LoadBoats() {
 	wxString urlString = "https://backend.sailaway.world/cgi-bin/sailaway/TrackAllBoats.pl?key=" + key + andusrname + usrname;
 
 	wxURI url(urlString);
-	//wxString tmp_file = wxFileName::CreateTempFileName(""); 
-	wxString tmp_file = "C:/Projects/Sailway/usrname.txt";
+	wxString tmp_file = wxFileName::CreateTempFileName(""); 
 	
 	m_bTransferComplete = false;
 	m_bTransferSuccess = true;
@@ -222,14 +211,13 @@ void Dlg::LoadBoats() {
 			if (!features.isMember("ubtname")) {
 				// Originator
 				wxLogMessage(_("No properties found in message"));
-				wxMessageBox("Not found");
+				wxMessageBox("User not found");
 			}
 
 			name = features["ubtname"].asString();
 			string name = features["ubtname"].asString();
 			wxString myboatname(name.c_str(), wxConvUTF8);
 
-			//wxMessageBox(myboatname, "name");
 			myNewBoat->boatname = myboatname;
 
 			if (!features.isMember("ubtnr")) {
@@ -241,7 +229,6 @@ void Dlg::LoadBoats() {
 			name = features["ubtnr"].asString();
 			wxString myboatnumber(name.c_str(), wxConvUTF8);
 
-			//wxMessageBox(myboatnumber, "ubtnr");
 			int boatnum;
 			boatnum = wxAtoi(myboatnumber);
 			myNewBoat->boatnumber = boatnum;
@@ -273,10 +260,7 @@ void Dlg::LoadBoatData() {
 	string name;
 	wxString myname;
 
-	//wxString key = "757a733e42e9efc9c9bd3b6e503721a4";
-	//wxString andusrname = "&usrname=";
-	usrname = m_textCtrlUser->GetValue(); //"bats";
-	//wxString andubtnr = "&ubtnr=";
+	usrname = m_textCtrlUser->GetValue(); 
 
 	wxString selectedBoat = m_comboBoxBoat->GetStringSelection();
 
@@ -297,12 +281,10 @@ void Dlg::LoadBoatData() {
 		return;
 	}
 
-
 	wxString urlString = "https://backend.sailaway.world/cgi-bin/sailaway/TrackAllBoats.pl?key=" + key + andusrname + usrname + andubtnr + ubtnr;
 
 	wxURI url(urlString);
-	//wxString tmp_file = wxFileName::CreateTempFileName("");
-	wxString tmp_file = "C:/Projects/Sailway/ubtnr.txt";
+	wxString tmp_file = wxFileName::CreateTempFileName("");
 	
 	long handle;
 	OCPN_downloadFileBackground(url.BuildURI(), tmp_file, this, &handle);
@@ -317,7 +299,7 @@ void Dlg::LoadBoatData() {
 		m_status->SetValue("Boat data update");
 	}
 	else {
-		m_status->SetValue("No boat data");
+		m_status->SetValue("Failure: No boat data");
 		return;
 	}
 
@@ -332,7 +314,7 @@ void Dlg::LoadBoatData() {
 	Json::Value  root;
 	// construct a JSON parser
 	Json::Reader reader;
-	wxString error = _("SailawayNMEA ... No boat data found");
+	wxString error = _("Failure: No boat data found");
 
 	if (!reader.parse((std::string)myjson, root)) {
 		wxLogMessage(error);
@@ -436,8 +418,6 @@ boat Dlg::FindNewBoatposition(boat drBoat){
 
 	//bool destLoxodrome(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2);
 	destLoxodrome(lat, lon, hdg, spd, &newbtDR.coordLat, &newbtDR.coordLon);
-
-	//wxMessageBox(wxString::Format("%f", btDR.coordLat), "fromdr");
 	
 	newbtDR.heading = hdg;
 	newbtDR.magHdg = drBoat.magHdg;
@@ -492,7 +472,6 @@ void Dlg::GenerateDRnmeaSentence() {
 	m_text->SetValue(nmea);
 
 	drBoat = calcBoat; //reset dr boat data
-	//wxMessageBox(wxString::Format("%f", myBoat.coordLat), "from generate");
 }
 
 double Dlg::parseFeature(Json::Value myFeatures, string featureName) {
@@ -523,10 +502,9 @@ void Dlg::OnStartServer(wxCommandEvent& event) {
 	useDR = m_checkBoxDR->GetValue();
 
 	LoadBoatData();
-	//wxMessageBox("Start");
+
 	serverRunning = true;
-	//m_status->SetValue("server running");
-	//if (serverRunning) {
+
 	Init_Datagram_Socket();
 	
 	m_timerFeed.Start(1000);
@@ -544,7 +522,6 @@ void Dlg::OnStartServer(wxCommandEvent& event) {
 void Dlg::OnStopServer(wxCommandEvent& event) {
 
 	
-	//wxMessageBox("Stop");
 	serverRunning = false;
 	m_status->SetValue("server stopped");
 	m_timerFeed.Stop();
@@ -599,7 +576,6 @@ void Dlg::OnTimerData(wxTimerEvent& event) {
 
 void Dlg::NMEASend(wxString myMessage)
 {
-	//wxString wxmessage = wxString::Format(_T("Test using port %d"), MY_SERVER_PORT);
 	wxString wxmessage = myMessage;
 	wxCharBuffer message = wxmessage.ToUTF8();  // used to get a const char* for SendTo
 
@@ -613,7 +589,6 @@ void Dlg::NMEASend(wxString myMessage)
 	}
 }
 
-
 /// The real stuff starts
 
 void Dlg::Init_Datagram_Socket()
@@ -622,6 +597,7 @@ void Dlg::Init_Datagram_Socket()
 	// <2.5.x, and for all versions if using secondary threads
 	// See https://wiki.wxwidgets.org/WxSocket
 	// See http://comp.soft-sys.wxwindows.narkive.com/vt9BEujR/wxsocketbase-initialize
+
 	wxSocketBase::Initialize();
 
 	m_LocalAddress.AnyAddress();            // Receive any address (0.0.0.0)
@@ -652,7 +628,9 @@ void Dlg::Init_Datagram_Socket()
 		// Set types of event that you want to receive:
 		m_Listen_Socket->SetNotify(wxSOCKET_INPUT_FLAG);
 		// Enable the event notification:
-		m_Listen_Socket->Notify(false);
+		
+		m_Listen_Socket->Notify(false); // Set false because notify would cause a problem for the data feed
+
 		// Setup the event handler (UDP_SOCKET is our custom event ID)
 		// Note: Use EVT_SOCKET(UDP_SOCKET,  BroadcastFrame::OnUDPEvent) in event table
 		m_Listen_Socket->SetEventHandler(*this, UDP_SOCKET);
@@ -660,7 +638,11 @@ void Dlg::Init_Datagram_Socket()
 
 	// Specify a broadcast IP, in this case "Limited Broadcast" on the local network:
 	m_BroadCastAddress.Hostname("255.255.255.255");
-	m_BroadCastAddress.Service(57343);
+
+	wxString port = m_textCtrlPort->GetValue();
+	int portNumber = atoi(port);
+
+	m_BroadCastAddress.Service(portNumber);
 
 }
 
@@ -679,7 +661,6 @@ void Dlg::OnUDPEvent(wxSocketEvent& event)
 		sock->Read(&buff, MAX_BUF_SIZE);
 		wxLogMessage(_("OnUDPEvent read: %hs\n"), buff);
 		wxString myMess = wxString::Format("OnUDPEvent read: %hs", buff);
-		//wxMessageBox(myMess);
 		break;
 	}
 
@@ -702,8 +683,6 @@ void Dlg::onDLEvent(OCPN_downloadEvent &ev)
 {
 	wxString msg;
 	msg.Printf(_T("onDLEvent  %d %d"), ev.getDLEventCondition(), ev.getDLEventStatus());
-	//    wxLogMessage(msg);
-		//wxMessageBox(msg);
 
 	switch (ev.getDLEventCondition()) {
 	case OCPN_DL_EVENT_TYPE_END:

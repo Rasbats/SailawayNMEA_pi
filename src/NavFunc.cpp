@@ -1,7 +1,7 @@
 /******************************************************************************
  *
  * Project:  OpenCPN
- * Purpose:  SAILAWAYNMEA Plugin
+ * Purpose:  SailawayNMEA Plugin
  * Author:   SaltyPaws/Mike Rossiter
  *
  ***************************************************************************

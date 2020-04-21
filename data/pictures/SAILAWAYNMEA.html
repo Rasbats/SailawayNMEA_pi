@@ -1,80 +1,127 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>UK Tides</title>
-  </head>
-  <body>
-    <h1> <font face="Arial">UK Tides</font></h1>
-    <font face="Arial">This plugin for OpenCPN can be used to download
-      tidal information from the UK Hydrographic Office (UKHO). Times of
-      high/low water are available for over 600 locations around the UK
-      (excluding the Channel Islands and the Isle of Man). Tidal data
-      for Port Erin (Isle of Man) and Saint Helier (Jersey) is available
-      from the main OpenCPN toolbar.<br>
-      <br>
-      An Internet connection is needed to download the UKHO tidal
-      station locations ("Ports") and the data for those locations. No
-      data is saved by the plugin.<br>
-    </font>
-    <h2><font face="Arial">Install</font></h2>
-    <font face="Arial">The OpenCPN program should be closed before
-      starting the installation. Double-click on the installer '.exe'
-      file. </font><br>
-    <font face="Arial"> </font><br>
-    <font face="Arial"><img src="0.0.png" alt="" width="515"
-        height="402"></font><font face="Arial"> <br>
-      <br>
-      Follow the steps and finish installing.<br>
-      <br>
-      Start OpenCPN and select Options-&gt;Plugins from the toolbar.
-      Enable the UK Tides plugin.<br>
-      <br>
-      <img src="0.1.png" alt="" width="717" height="88"><br>
-      <br>
-      This will place the UK Tides button on the toolbar.<br>
-      <br>
-      <img src="1.png" alt="" width="284" height="170"><br>
-      <br>
-    </font>
-    <h2><font face="Arial">Using the plugin</font></h2>
-    <p><font face="Arial">Click the plugin button and the dialog will
-        open.<br>
-      </font></p>
-    <img src="1.1.png" alt="" width="245" height="380"><br>
-    <br>
-    <font face="Arial">To show the locations of the tidal stations use
-      Locations-&gt;Download from the menubar or press the Download
-      button. The locations will appear on the chart, marked with the
-      anchor symbol.<br>
-    </font>
-    <p><img src="2.png" alt="" width="431" height="380"><br>
-    </p>
-    <p><font face="Arial">To get the predictions right-click on the
-        chart close to a port location. A menu is shown.<br>
-      </font></p>
-    <img src="3.png" alt="" width="346" height="345"><br>
-    <br>
-    <font face="Arial"> Click on 'Select UK Tidal Station' and a table
-      of high and low water will show on the screen.<br>
-      <br>
-      <img src="4.png" alt="" width="428" height="269"><br>
-      <br>
-      We have used the default of one day of predictions. </font><font
-      face="Arial"><font face="Arial">Use the 'Days ahead' dropdown to
-        change the number of days predictions.<br>
-        <br>
-        <img src="5.png" alt="" width="224" height="343">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-        <br>
-        <br>
-        <img src="6.png" alt="" width="592" height="497"><br>
-        <br>
-        When the plugin dialog is closed the port locations remain on
-        the chart. If you need to remove these close and restart the
-        OpenCPN program.<br>
-      </font><br>
-    </font>
-  </body>
-</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>UK Tides</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice 4.1.5  (Win32)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20200420;21405528">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin-left: 1.16cm; margin-right: 1cm }
+		H2.cjk { font-family: "SimSun" }
+		H2.ctl { font-family: "Mangal" }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-GB" DIR="LTR">
+<H1><FONT FACE="Arial">SailawayNMEA</FONT></H1>
+<P><FONT FACE="Arial"><SPAN LANG="en-GB">This plugin was inspired by
+and used a lot of code ideas from the OpenSource C# program
+'SailawayToNMEA' created by </SPAN></FONT><FONT FACE="Arial, sans-serif"><SPAN LANG="en-GB">Daniel
+L&oacute;pez Lacalle:<A HREF="https://github.com/expilu/sailaway-api-to-nmea">https://github.com/expilu/sailaway-api-to-nmea</A></SPAN></FONT></P>
+<H2 CLASS="western"><FONT FACE="Arial">Sailaway:</FONT></H2>
+<P><A HREF="https://sailaway.world/"><FONT FACE="Arial, sans-serif"><SPAN LANG="en-GB">https://sailaway.world/</SPAN></FONT></A></P>
+<P><FONT FACE="Arial, sans-serif">Sailaway is a SimGame player that
+can be installed on Windows and OSX, or via Wine on Linux. It
+connects to a multiplayer sailing simulator/game on the Internet.
+Highly realistic. <BR>Over 9000 players so far. The basic edition is
+free!</FONT></P>
+<P><FONT FACE="Arial">SailawayNMEA uses the API offered by 'Sailaway'
+to provide a JSON feed from that program to OpenCPN. The JSON is then
+read and the NMEA sentences produced fed to OpenCPN.<BR><BR>An
+Internet connection is needed to load the boat data and provide the
+feed. <BR>After registering, playing and without running the Sailaway
+game you have 7 days where you can still obtain a feed, which could
+be useful for testing NMEA work.</FONT></P>
+<H2 CLASS="western"><FONT FACE="Arial">Important:</FONT></H2>
+<P><FONT FACE="Arial">You need to have registered with Sailaway,
+chosen a boat and started sailing to provide a feed to OpenCPN. A
+cheat sheet will be posted in the manual. <BR>It is best to start
+sailing at minumum speed! Registration gives you a user name which is
+used to load the boats you are sailing.</FONT></P>
+<H2 CLASS="western"><FONT FACE="Arial">Install</FONT></H2>
+<P><FONT FACE="Arial">The OpenCPN program should be closed before
+starting the installation. Double-click on the installer '.exe' file.</FONT></P>
+<P><IMG SRC="0.0.png" NAME="graphics1" ALIGN=LEFT WIDTH=513 HEIGHT=400 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><BR><BR>
+</P>
+<P><FONT FACE="Arial"><BR>Follow the steps and finish
+installing.<BR><BR>Start OpenCPN and select Options-&gt;Plugins from
+the toolbar. Enable the SailawayNMEA plugin.</FONT></P>
+<P><BR><BR>
+</P>
+<P><IMG SRC="0.png" NAME="graphics2" ALIGN=LEFT WIDTH=575 HEIGHT=85 BORDER=0><BR CLEAR=LEFT><FONT FACE="Arial"><BR><BR>This
+will place the Sailaway button on the toolbar.</FONT></P>
+<H2 CLASS="western"><IMG SRC="1.png" NAME="graphics3" ALIGN=LEFT WIDTH=171 HEIGHT=228 BORDER=0><BR CLEAR=LEFT><FONT FACE="Arial">Using
+the plugin</FONT></H2>
+<P><FONT FACE="Arial">Click the plugin button and the dialog will
+open.</FONT></P>
+<P><IMG SRC="3.png" NAME="graphics4" ALIGN=LEFT WIDTH=265 HEIGHT=692 BORDER=0><BR CLEAR=LEFT><BR><BR><FONT FACE="Arial">The
+plugin uses UDP to feed the data to OpenCPN. The connection to the
+Sailaway server is via TCP/IP. </FONT>
+</P>
+<P><FONT FACE="Arial">Default ports are 57343 for UDP and 10110 for
+TCP/IP. Set them up as shown here:</FONT></P>
+<P><IMG SRC="4.png" NAME="graphics5" ALIGN=LEFT WIDTH=697 HEIGHT=470 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial">Enter your user name. Press 'Enter' or the
+button 'Load Boats' to download the boats you have chosen in Sailaway
+from the server.</FONT></P>
+<P><IMG SRC="5.png" NAME="graphics8" ALIGN=LEFT WIDTH=195 HEIGHT=629 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial">It is useful to open Dashboard to see the data.</FONT></P>
+<P><BR><BR>
+</P>
+<P><IMG SRC="7.png" NAME="graphics7" ALIGN=LEFT WIDTH=766 HEIGHT=730 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial">To avoid creating excessive load on the
+Sailaway server the sailing data is only downloaded every 10 minutes.
+</FONT>
+</P>
+<P><FONT FACE="Arial">This is at the request of the developer of
+Sailaway. To provide a continuous NMEA feed DR positions are
+calculated. </FONT>
+</P>
+<P><FONT FACE="Arial">You can disable this but performance will be
+impacted.</FONT><BR><BR><FONT FACE="Arial">Press the 'Start Server'
+button to start the feed of sailing data.</FONT></P>
+<P><IMG SRC="8.png" NAME="graphics10" ALIGN=LEFT WIDTH=241 HEIGHT=201 BORDER=0><BR CLEAR=LEFT><FONT FACE="Arial"><BR>If
+you have Sailaway running and you alter course you will see this on
+the chart display. </FONT>
+</P>
+<P><FONT FACE="Arial">Just remember the 10 minute refresh rate.</FONT></P>
+<P><IMG SRC="10.png" NAME="graphics11" ALIGN=LEFT WIDTH=668 HEIGHT=576 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial">The NMEA sentences produced from the sailing
+data.</FONT></P>
+<P><IMG SRC="11.png" NAME="graphics12" ALIGN=LEFT WIDTH=706 HEIGHT=717 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial">I positioned myself in Sailaway so that I could
+see another player in the distance.</FONT></P>
+<P><IMG SRC="12.png" NAME="graphics13" ALIGN=LEFT WIDTH=438 HEIGHT=332 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial"><BR>Depths across the virtual world have been
+added to the server. Transducer depth can be set. (This is not a good
+example)</FONT></P>
+<IMG SRC="13.png" NAME="graphics9" ALIGN=LEFT WIDTH=707 HEIGHT=544 BORDER=0><BR CLEAR=LEFT>
+<P STYLE="margin-right: 0.34cm; page-break-before: auto; page-break-after: auto">
+<BR><BR>
+</P>
+<P><FONT FACE="Arial">To compare with the data displayed in the
+Sailaway game.</FONT></P>
+<P><IMG SRC="14.png" NAME="graphics14" ALIGN=LEFT WIDTH=457 HEIGHT=481 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><IMG SRC="a.png" NAME="graphics15" ALIGN=LEFT WIDTH=936 HEIGHT=465 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<P><FONT FACE="Arial">A course alteration.</FONT></P>
+<P><IMG SRC="b.png" NAME="graphics16" ALIGN=LEFT WIDTH=938 HEIGHT=549 BORDER=0><BR CLEAR=LEFT><BR><BR>
+</P>
+<H2 CLASS="western"><FONT FACE="Arial">To do:</FONT></H2>
+<P><FONT FACE="Arial">1. Save user name in config.</FONT></P>
+<P><FONT FACE="Arial">2. Extract the route from the JSON feed and
+display on the chart.<BR><BR><BR></FONT><BR><BR>
+</P>
+</BODY>
+</HTML>

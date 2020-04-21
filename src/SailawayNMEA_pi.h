@@ -1,11 +1,11 @@
 /******************************************************************************
  *
  * Project:  OpenCPN
- * Purpose:  SAILAWAYNMEA Plugin
+ * Purpose:  SailawayNMEA Plugin
  * Author:   Mike Rossiter
  *
  ***************************************************************************
- *   Copyright (C) 2019 by Mike Rossiter                                   *
+ *   Copyright (C) 2020 by Mike Rossiter                                   *
  *   $EMAIL$                                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *

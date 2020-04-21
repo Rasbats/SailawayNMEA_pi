@@ -1,11 +1,11 @@
 /******************************************************************************
  *
  * Project:  OpenCPN
- * Purpose:  SAILAWAYNMEA Plugin
+ * Purpose:  SailawayNMEA Plugin
  * Author:   Mike Rossiter
  *
  ***************************************************************************
- *   Copyright (C) 2019 by Mike Rossiter                                   *
+ *   Copyright (C) 2020 by Mike Rossiter                                   *
  *   $EMAIL$                                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -65,7 +65,7 @@ enum
 	UDP_SOCKET = 57340
 };
 
-#define REQUEST_RATE  60000
+#define REQUEST_RATE  600000
 #define DEAD_RECKONING_RATE 10000
 #define MS_TO_KNOTS 1.94384
 
@@ -119,7 +119,6 @@ public:
 	void OnLoadBoats(wxCommandEvent& event);
 	void OnLoadBoatData(wxCommandEvent& event);
     void onDLEvent(OCPN_downloadEvent &ev);
-	void OnTestServer(wxCommandEvent& event);
 	
 	void OnStartServer(wxCommandEvent& event);
 	void OnStopServer(wxCommandEvent& event);

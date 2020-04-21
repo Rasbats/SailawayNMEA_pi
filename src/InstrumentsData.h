@@ -1,3 +1,29 @@
+/******************************************************************************
+ *
+ * Project:  OpenCPN
+ * Purpose:  SailawayNMEA Plugin
+ * Author:   Mike Rossiter
+ *
+ ***************************************************************************
+ *   Copyright (C) 2020 by Mike Rossiter                                   *
+ *   $EMAIL$                                                               *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ */
 //header guard at start of header file
 #ifndef OBJECT2_H
 #define OBJECT2_H
@@ -23,9 +49,6 @@ public:
 
 	const double& lon() const { return _lon; }
 	void lon(const double& lon) { _lon = lon; }
-
-	//const string& FixQualityType() const { return _FixQualityType; }
-	//void FixQualityType(const string& FixQualityType) { _FixQualityType = FixQualityType; }
 
 	const double& waterSpd() const { return _waterSpd; }
 	void waterSpd(const double& waterSpd) { _waterSpd = waterSpd; } // knots
@@ -71,7 +94,6 @@ private:
 	NMEASentenceGenerator* myGenerator;
 	double _lat;
 	double _lon;
-	//string _FixQualityType;
 	double _waterSpd;
 	int _Heading;
 	int _magHdg;
