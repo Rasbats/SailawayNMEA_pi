@@ -30,7 +30,6 @@
 
 #include "InstrumentsData.h"
 
-
 #include <string.h>
 
 using namespace std;
@@ -63,7 +62,7 @@ public:
 	string ConvertDecimalDegreesToNMEAFormat(double decimalDegrees, Coord coord);
 	string CalculateCheckSum(wxString mySentence);
 	string FormatSentence(string sentence);
-	string NMEASentenceGenerator::UTCTime();
+	string UTCTime();
 	string dateDDMMYY();
 
 };

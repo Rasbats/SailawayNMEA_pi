@@ -26,20 +26,6 @@
  */
 
 #include "SailawayNMEAgui_impl.h"
-#include <wx/wx.h>
-#include "wx/dir.h"
-
-
-#include <wx/ffile.h>
-#include <wx/filefn.h>
-#include <wx/url.h>
-#include "jsoncpp/json/json.h"
-#include "wx/busyinfo.h"
-#include "wx/socket.h"
-#include "wx/sstream.h"
-#include "wx/thread.h"
-#include "wx/scopedptr.h"
-
 
 class Position;
 class SailawayNMEA_pi;
@@ -601,7 +587,12 @@ void Dlg::Init_Datagram_Socket()
 	wxSocketBase::Initialize();
 
 	m_LocalAddress.AnyAddress();            // Receive any address (0.0.0.0)
-	m_LocalAddress.Service(MY_SERVER_PORT);   // port on which we listen
+	const bool success = m_LocalAddress.Hostname(wxGetFullHostName() );
+    if(!success) wxMessageBox(wxT("Error"));
+    wxString ipAddress = m_LocalAddress.IPAddress();
+    wxMessageBox("Starting NMEA feed");
+    
+    m_LocalAddress.Service(MY_SERVER_PORT);   // port on which we listen
 
 // Create the socket
 	m_Listen_Socket = new wxDatagramSocket(m_LocalAddress, wxSOCKET_REUSEADDR);
@@ -636,13 +627,10 @@ void Dlg::Init_Datagram_Socket()
 		m_Listen_Socket->SetEventHandler(*this, UDP_SOCKET);
 	}
 
-	// Specify a broadcast IP, in this case "Limited Broadcast" on the local network:
+	//Specify a broadcast IP, in this case "Limited Broadcast" on the local network:
 	m_BroadCastAddress.Hostname("255.255.255.255");
 
-	wxString port = m_textCtrlPort->GetValue();
-	int portNumber = atoi(port);
-
-	m_BroadCastAddress.Service(portNumber);
+	m_BroadCastAddress.Service(57343);
 
 }
 

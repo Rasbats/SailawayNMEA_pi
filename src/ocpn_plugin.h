@@ -42,7 +42,11 @@
 #ifdef MAKING_PLUGIN
 #  define DECL_IMP     __declspec(dllimport)
 #endif
-#endif    
+#endif
+
+#ifndef DECL_IMP
+#define DECL_IMP
+#endif
 
 #include <wx/xml/xml.h>
 #include <wx/dcmemory.h>
@@ -67,6 +71,7 @@ class wxGLContext;
 //    be correctly supported.
 #define API_VERSION_MAJOR           1
 #define API_VERSION_MINOR           17
+
 
 //    Fwd Definitions
 class       wxFileConfig;
@@ -1259,7 +1264,6 @@ private:
     long m_sofarBytes;
     bool m_b_complete;
 };
-
 
 //extern WXDLLIMPEXP_CORE const wxEventType wxEVT_DOWNLOAD_EVENT;
 

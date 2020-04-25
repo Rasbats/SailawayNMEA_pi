@@ -32,6 +32,8 @@
 #include "wx/wx.h"
 #endif
 
+#include "NMEASentenceGenerator.h"
+#include "InstrumentsData.h"
 #include "SailawayNMEAgui.h"
 #include "SailawayNMEA_pi.h"
 #include "NavFunc.h"
@@ -42,7 +44,19 @@
 #include <list>
 #include <vector>
 #include "wx/socket.h"
-#include <winsock.h>
+
+#if defined (__WXMSW__)
+    #include <winsock.h>
+#endif
+
+#if defined (__APPLE__) && defined (__MACH__)
+    #include <sys/types.h>
+    #include <sys/socket.h>
+#elif defined (__POSIX__)
+    #include <sys/types.h>
+    #include <sys/socket.h>
+#endif
+
 #include <wx/timer.h>
 #include <wx/ffile.h>
 #include <wx/filefn.h>
@@ -50,10 +64,11 @@
 #include <wx/url.h>
 #include "jsoncpp/json/json.h"
 #include "ocpn_plugin.h"
-#include "NMEASentenceGenerator.h"
-#include "InstrumentsData.h"
 #include <wx/time.h>
-
+#include "wx/dir.h"
+#include "wx/busyinfo.h"
+#include "wx/sstream.h"
+#include "wx/thread.h"
 
 
 #define MY_SERVER_PORT 57343
@@ -158,10 +173,6 @@ private:
 	wxString selectedBoat;
 
 	vector<boat>allMyBoats;
-
-	wxButton* m_buttonStart;
-	wxButton* m_buttonStop;
-	wxButton* m_buttonDownload;
 	
 	void Init_Datagram_Socket();
 	
