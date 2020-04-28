@@ -43,7 +43,7 @@
 
 
 #define     PLUGIN_VERSION_MAJOR    0
-#define     PLUGIN_VERSION_MINOR    1
+#define     PLUGIN_VERSION_MINOR    2
 
 #define     MY_API_VERSION_MAJOR 1
 #define     MY_API_VERSION_MINOR 16
@@ -93,7 +93,8 @@ public:
       void SetCalculatorDialogX         (int x){ m_route_dialog_x = x;};
       void SetCalculatorDialogY         (int x){ m_route_dialog_y = x;};
       void SetCalculatorDialogWidth     (int x){ m_route_dialog_width = x;};
-      void SetCalculatorDialogHeight    (int x){ m_route_dialog_height = x;};      
+      void SetCalculatorDialogHeight    (int x){ m_route_dialog_height = x;};   
+
 	  void OnSAILAWAYNMEADialogClose();
 	  
 
@@ -111,23 +112,23 @@ private:
 	double m_cursor_lon;
 	double m_cursor_lat;
 
-	  void OnClose( wxCloseEvent& event );
-	  SailawayNMEA_pi *plugin;
-	  
-	  wxFileConfig      *m_pconfig;
-      wxWindow          *m_parent_window;
-      bool              LoadConfig(void);
-      bool              SaveConfig(void);
-      
-      int               m_route_dialog_x, m_route_dialog_y,m_route_dialog_width,m_route_dialog_height;
-      int               m_display_width, m_display_height;      
-      int               m_leftclick_tool_id;
-      bool              m_ShowHelp,m_bCaptureCursor,m_bCaptureShip;
-      double m_ship_lon,m_ship_lat;
+	void OnClose( wxCloseEvent& event );
+	SailawayNMEA_pi *plugin;
 
-	  bool             m_bSAILAWAYNMEAShowIcon;
-	  bool             m_bShowSAILAWAYNMEA;
-	  wxBitmap         m_panelBitmap;
+	wxFileConfig      *m_pconfig;
+	wxWindow          *m_parent_window;
+	bool              LoadConfig(void);
+	bool              SaveConfig(void);
+
+	int               m_route_dialog_x, m_route_dialog_y, m_route_dialog_width, m_route_dialog_height;
+	int               m_display_width, m_display_height;
+	int               m_leftclick_tool_id;
+	bool              m_ShowHelp, m_bCaptureCursor, m_bCaptureShip;
+	double m_ship_lon, m_ship_lat;
+
+	bool             m_bSAILAWAYNMEAShowIcon;
+	bool             m_bShowSAILAWAYNMEA;
+	wxBitmap         m_panelBitmap;
 };
 
 #endif

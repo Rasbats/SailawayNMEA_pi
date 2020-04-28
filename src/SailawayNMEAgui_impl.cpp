@@ -30,6 +30,7 @@
 class Position;
 class SailawayNMEA_pi;
 
+#define FAIL(X) do { error = X; goto failed; } while(0)
 
 Dlg::Dlg(SailawayNMEA_pi &m_SailawayNMEA_pi, wxWindow* parent):	DlgDef(parent)
 
@@ -51,7 +52,7 @@ Dlg::~Dlg()
 {
 }
 
-void Dlg::OnInformation(wxCommandEvent& event)
+void Dlg::OnGuide(wxCommandEvent& event)
 {
 	
 	wxString infolocation = *GetpSharedDataLocation()
@@ -59,6 +60,249 @@ void Dlg::OnInformation(wxCommandEvent& event)
 	wxLaunchDefaultBrowser("file:///" + infolocation);
 
 }
+
+void Dlg::OnMakeWaypoints(wxCommandEvent& event) {
+
+	bool gotXML;
+	gotXML = OpenXML();
+	if (gotXML) {
+		WriteTextFile();
+	}
+	else {
+	
+		wxMessageBox("OpenCPN GPX file is in error");
+
+	}
+
+}
+
+bool Dlg::OpenXML() {
+	
+		Position my_position;
+
+		my_positions.clear();
+
+		int response = wxID_CANCEL;
+		int my_count = 0;
+
+		wxArrayString file_array;
+		wxString filename;
+		wxFileDialog openDialog(this, _("Import GPX Route file"), m_gpx_path, wxT(""),
+			wxT("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"),
+			wxFD_OPEN | wxFD_MULTIPLE);
+		response = openDialog.ShowModal();
+		if (response == wxID_OK) {
+			openDialog.GetPaths(file_array);
+
+			//    Record the currently selected directory for later use
+			if (file_array.GetCount()) {
+				wxFileName fn(file_array[0]);
+				filename = file_array[0];
+				m_gpx_path = fn.GetPath();
+			}
+		}
+		else if (response = wxID_CANCEL) {
+			return false;
+		}
+
+		TiXmlDocument doc;
+		wxString error;
+
+
+		if (!doc.LoadFile(filename.mb_str())) {
+			FAIL(_("Failed to load file: ") + filename);
+		}
+		else {
+			TiXmlElement *root = doc.RootElement();
+			if (!strcmp(root->Value(), "rte"))
+				FAIL(_("rte Invalid xml file"));
+
+			int count = 0;
+			for (TiXmlElement* e = root->FirstChildElement(); e; e = e->NextSiblingElement())
+				count++;
+
+			int i = 0;
+			for (TiXmlElement* e = root->FirstChildElement(); e; e = e->NextSiblingElement(), i++) {
+				
+
+				for (TiXmlElement* f = e->FirstChildElement(); f; f = f->NextSiblingElement()) {
+					if (!strcmp(f->Value(), "rtept")) {
+						wxString rte_lat = wxString::FromUTF8(f->Attribute("lat"));
+						wxString rte_lon = wxString::FromUTF8(f->Attribute("lon"));
+
+						my_position.lat = rte_lat;
+						my_position.lon = rte_lon;
+						my_positions.push_back(my_position);
+					}  //else if(!strcmp(f->Value(), "extensions")) {
+						//rte_start = wxString::FromUTF8(f->Attribute("opencpn:start"));
+						//rte_end = wxString::FromUTF8(f->Attribute("opencpn:end"));
+
+					//}				
+				}
+
+			}
+		}
+
+		return true;
+
+	failed:
+
+		wxMessageDialog mdlg(this, error, _("DR"), wxOK | wxICON_ERROR);
+		mdlg.ShowModal();
+
+		return false;
+	
+}
+
+void Dlg::WriteTextFile() {
+
+	bool error_occured = false;
+
+	wxString s;
+	wxFileDialog dlg(this, _("Export waypoint Positions in Sailaway text file as"), wxEmptyString, wxEmptyString, _T("Text files (*.txt)|*.txt|All files (*.*)|*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+	if (dlg.ShowModal() == wxID_CANCEL) {
+		error_occured = true;     // the user changed idea...
+		return;
+	}
+
+	s = dlg.GetPath();
+
+	if (dlg.GetPath() == wxEmptyString) { 
+		error_occured = true; 
+		wxLogMessage("Empty waypoint export path\n"); 
+		wxMessageBox("Path does not exist");
+		return;
+	}
+
+	//Start writing text file
+	wxString wp_file = s;
+	wxFFile fileData;
+	fileData.Open(wp_file, wxT("w"));
+
+	double lati, loni;
+	
+	wxString latS, lonS;
+	Coord coordNS;
+	double value, value1;
+	int n = 1000;
+
+	for (std::vector<Position>::iterator it = my_positions.begin(); it != my_positions.end(); it++) {
+
+		if (!(*it).lat.ToDouble(&value)) { /* error! */ }
+		lati = value;
+		coordNS = Coord::lat;
+		latS = ConvertDecimalDegreesToSailawayFormat(lati, coordNS);
+
+		if (!(*it).lon.ToDouble(&value1)) { /* error! */ }
+		loni = value1;
+
+		coordNS = Coord::lon;
+		lonS = ConvertDecimalDegreesToSailawayFormat(loni, coordNS);	
+
+		//05°36.336 N  000°24.905 E;......
+		wxString endString = ";";
+		if (it != my_positions.end()) {
+			fileData.Write(latS + "  " + lonS + endString + "\n");
+			//fileData.Write("\n");
+		}
+		else {
+			fileData.Write(latS + "  " + lonS + endString);
+		}
+
+		n++;//0,1,2,3
+	}
+
+	my_positions.clear();
+	
+	fileData.Close();
+	
+}
+
+wxString Dlg::ConvertDecimalDegreesToSailawayFormat(double decimalDegrees, Coord coord){
+
+	string cardinal = "";
+
+	switch (coord)
+	{
+	case Coord::lat:
+		cardinal = decimalDegrees >= 0 ? "N" : "S";
+		break;
+	case Coord::lon:
+		cardinal = decimalDegrees >= 0 ? "E" : "W";
+		break;
+	}
+
+	wxString mMinLL;
+	wxString mDegLL;
+	wxString doublezero = _T("00");
+	wxString singlezero = _T("0");
+
+	decimalDegrees = abs(decimalDegrees);
+
+	double sec = decimalDegrees * 3600;
+
+	double floorSec = sec / 3600;
+	int deg = static_cast<int>(floorSec);
+
+	sec -= deg * 3600;
+	double min = sec / 60;
+
+	wxString wxDeg(wxString::Format("%i", deg));
+
+	int myLL = wxDeg.length();
+
+	switch (myLL) {
+	case(1): {
+		if (coord == Coord::lat) {
+			mDegLL = singlezero + wxDeg;
+		}
+		else if (coord == Coord::lon) {
+			mDegLL = doublezero + wxDeg;
+		}
+		break;
+	}
+	case(2): {
+		if (coord == Coord::lon) {
+			mDegLL = singlezero + wxDeg;
+		}
+		else 	mDegLL = wxDeg;
+		break;
+	}
+	case(3): {
+		mDegLL = wxDeg;
+		break;
+	}
+	}
+
+	wxString wxMin(wxString::Format("%5.3f", min));
+
+	int myMinLength = wxMin.length();
+
+	switch (myMinLength) {
+
+	case(5): {
+		mMinLL = singlezero + wxMin;
+		break;
+	}
+
+	case(6): {
+		mMinLL = wxMin;
+		break;
+	}
+	}
+	wxString degSymbol = "°";
+	//05°36.336 N  000°24.905 E;......
+	wxString output = mDegLL + degSymbol + mMinLL + " " + cardinal;
+	//wxMessageBox(output);
+	
+	return  output;
+}
+
+
+void Dlg::OnExit(wxCommandEvent& event) {
+	plugin->OnSAILAWAYNMEADialogClose();
+}
+
 
 void Dlg::AutoSizeHeader(wxListCtrl *const list_ctrl)
 {
@@ -77,6 +321,7 @@ void Dlg::AutoSizeHeader(wxListCtrl *const list_ctrl)
 
 void Dlg::OnClose(wxCloseEvent& event)
 {
+	StopServer();
 	plugin->OnSAILAWAYNMEADialogClose();
 }
 
@@ -109,13 +354,15 @@ wxString Dlg::StandardPath()
 	return stdPath;
 }
 
-void Dlg::OnLoadBoats(wxCommandEvent& event) {
+void Dlg::OnLoadBoats(wxCommandEvent& event) 
+{
 
 	LoadBoats();
 
 }
 
-void Dlg::LoadBoats() {
+void Dlg::LoadBoats() 
+{
 
 	string name;
 	wxString myname;
@@ -185,8 +432,6 @@ void Dlg::LoadBoats() {
 		return;
 	}
 
-
-
 	int i = root["boats"].size();
 
 	for (int j = 0; j < i; j++) {
@@ -222,7 +467,8 @@ void Dlg::LoadBoats() {
 			allMyBoats.push_back(*myNewBoat);
 	}
 
-		for (std::vector<boat>::iterator it = allMyBoats.begin(); it != allMyBoats.end(); it++) {
+		for (std::vector<boat>::iterator it = allMyBoats.begin(); it != allMyBoats.end(); it++) 
+		{
 
 			wxString boatName = (*it).boatname;
 			m_comboBoxBoat->Append(boatName);
@@ -236,12 +482,14 @@ void Dlg::LoadBoats() {
 
 }
 
-void Dlg::OnLoadBoatData(wxCommandEvent& event) {
+void Dlg::OnLoadBoatData(wxCommandEvent& event) 
+{
 
 	LoadBoatData();
 }
 
-void Dlg::LoadBoatData() {
+void Dlg::LoadBoatData() 
+{
 
 	string name;
 	wxString myname;
@@ -394,7 +642,8 @@ void Dlg::LoadBoatData() {
 	}
 
 
-boat Dlg::FindNewBoatposition(boat drBoat){
+boat Dlg::FindNewBoatposition(boat drBoat)
+{
 	boat newbtDR;
 	double lat = drBoat.coordLat;
 	double lon = drBoat.coordLon;
@@ -427,7 +676,8 @@ boat Dlg::FindNewBoatposition(boat drBoat){
 	return newbtDR;
 }
 
-void Dlg::GenerateDRnmeaSentence() {
+void Dlg::GenerateDRnmeaSentence() 
+{
 	boat calcBoat;
 	calcBoat = FindNewBoatposition(drBoat);
 	
@@ -460,7 +710,8 @@ void Dlg::GenerateDRnmeaSentence() {
 	drBoat = calcBoat; //reset dr boat data
 }
 
-double Dlg::parseFeature(Json::Value myFeatures, string featureName) {
+double Dlg::parseFeature(Json::Value myFeatures, string featureName) 
+{
 
 	if (!myFeatures.isMember(featureName)) {
 		// Originator
@@ -483,7 +734,8 @@ BEGIN_EVENT_TABLE(Dlg, wxFrame)
 EVT_SOCKET(UDP_SOCKET, Dlg::OnUDPEvent)
 END_EVENT_TABLE()
 
-void Dlg::OnStartServer(wxCommandEvent& event) {
+void Dlg::OnStartServer(wxCommandEvent& event) 
+{
 
 	useDR = m_checkBoxDR->GetValue();
 
@@ -505,15 +757,22 @@ void Dlg::OnStartServer(wxCommandEvent& event) {
 	event.Skip();
 }
 
-void Dlg::OnStopServer(wxCommandEvent& event) {
+void Dlg::OnStopServer(wxCommandEvent& event) 
+{
 
-	
-	serverRunning = false;
+	StopServer();
+	event.Skip();
+
+}
+
+void Dlg::StopServer()
+{
+    serverRunning = false;
 	m_status->SetValue("server stopped");
 	m_timerFeed.Stop();
 	m_timerData.Stop();
 
-	event.Skip();
+	
 }
 
 void Dlg::OnTimerFeed(wxTimerEvent& event) {

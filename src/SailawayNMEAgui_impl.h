@@ -69,6 +69,7 @@
 #include "wx/busyinfo.h"
 #include "wx/sstream.h"
 #include "wx/thread.h"
+#include <wx/progdlg.h>
 
 
 #define MY_SERVER_PORT 57343
@@ -113,6 +114,7 @@ struct boat
 class NMEASentenceGenerator;
 class InstrumentsData;
 class SailawayNMEA_pi;
+class Position;
 
 
 class Dlg : public DlgDef
@@ -121,22 +123,21 @@ public:
 	Dlg(SailawayNMEA_pi &m_SailawayNMEA_pi, wxWindow* parent);
 	~Dlg();
 
-	
-	void OnInformation(wxCommandEvent& event);
-
 	SailawayNMEA_pi *plugin;
 
 	wxString m_default_configuration_path;
 	void AutoSizeHeader(wxListCtrl *const list_ctrl);
 
 	wxString StandardPath();
-	
+
 	void OnLoadBoats(wxCommandEvent& event);
 	void OnLoadBoatData(wxCommandEvent& event);
-    void onDLEvent(OCPN_downloadEvent &ev);
-	
+	void onDLEvent(OCPN_downloadEvent &ev);
+
 	void OnStartServer(wxCommandEvent& event);
 	void OnStopServer(wxCommandEvent& event);
+
+	void StopServer();
 
 	void LoadBoats();
 	void LoadBoatData();
@@ -151,10 +152,18 @@ public:
 	wxString m_totalsize = _("Unknown");
 	wxString m_transferredsize = _T("0");
 	bool useDR;
-	
+
 private:
 
-	
+	void OnMakeWaypoints(wxCommandEvent& event);
+	void OnExit(wxCommandEvent& event);
+	void OnGuide(wxCommandEvent& event);
+
+
+
+	bool OpenXML();
+	void WriteTextFile();
+	wxString ConvertDecimalDegreesToSailawayFormat(double decimalDegrees, Coord coord);
 
 	bool startDR;
 
@@ -202,6 +211,17 @@ private:
 
 	void OnClose( wxCloseEvent& event );	
     bool dbg;
+
+	vector<Position> my_positions;
+	wxString     m_gpx_path;
+};
+
+class Position
+{
+public:
+
+	wxString lat, lon, wpt_num;
+
 };
 
 

@@ -302,3 +302,7 @@ void SailawayNMEA_pi::OnSAILAWAYNMEADialogClose()
 
 }
 
+void SailawayNMEA_pi::OnClose(wxCloseEvent& event)
+{
+	plugin->OnSAILAWAYNMEADialogClose();
+}

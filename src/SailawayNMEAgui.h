@@ -75,9 +75,9 @@ class DlgDef : public wxFrame
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
-		
-		virtual void OnGetSavedTides( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnInformation( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnMakeWaypoints(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnExit(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnGuide(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnLoadBoats( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnLoadBoatData(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnTestServer( wxCommandEvent& event ) { event.Skip(); }
@@ -89,6 +89,7 @@ class DlgDef : public wxFrame
 
 	public:
 		wxMenuItem* m_menuItem2;
+		wxMenuItem* m_menuItem3;
 		wxTextCtrl* m_textCtrlPort;
 		wxTextCtrl* m_textCtrlUser;
 		wxButton* m_buttonLoadBoats;
