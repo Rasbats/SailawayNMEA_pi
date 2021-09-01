@@ -1,25 +1,25 @@
-== SailawayNMEA
+= SailawayNMEA
 
 image:sailawaynmea_panel_icon.png[]
 
 SailawayNMEA generates a NMEA feed from the SimGame 'Sailaway'.
 
-=== Links
+== Links
 
 * Source: https://github.com/Rasbats/SailawayNMEA_pi[Github
-Repository] +
+Repository]
 * Releases:
 https://github.com/Rasbats/SailawayNMEA_pi/releases/tag/v0.1[Github
-Releases] +
+Releases]
 * Forum:
 https://www.cruisersforum.com/forums/f134/sailaway-world-232051.html[SailawayNMEA
 Plugin Thread]
 
-=== Aim
+== Aim
 
 To use OpenCPN as a chart display for the Sailaway multiplayer SimGame.
 
-=== Requirements
+== Requirements
 
 [source,code]
 ----
@@ -33,33 +33,33 @@ OpenSource C# program 'SailawayToNMEA' created by Daniel López Lacalle:
 
 https://github.com/expilu/sailaway-api-to-nmea
 
-=== Sailaway:
+== Sailaway:
 
 https://sailaway.world/[https://sailaway.world]
 
 Sailaway is a SimGame player that can be installed on Windows and OSX,
 or via Wine on Linux. It connects to a multiplayer sailing
-simulator/game on the Internet. Highly realistic. +
+simulator/game on the Internet. Highly realistic.
 Over 9000 players so far. The basic edition is free!
 
 SailawayNMEA uses the API offered by 'Sailaway' to provide a JSON feed
 from that program to OpenCPN. The JSON is then read and the NMEA
-sentences produced fed to OpenCPN. +
- +
+sentences produced fed to OpenCPN.
+
 An Internet connection is needed to load the boat data and provide the
-feed. +
+feed.
 After registering, playing and without running the Sailaway game you
 have 7 days where you can still obtain a feed, which could be useful for
 testing NMEA work.
 
-=== Important:
+== Important:
 
 You need to have registered with Sailaway, chosen a boat and started
-sailing to provide a feed to OpenCPN. +
+sailing to provide a feed to OpenCPN.
 It is best to start sailing at minumum speed! Registration gives you a
 user name which is used to load the boats you are sailing.
 
-=== Install
+== Install
 
 The OpenCPN program should be closed before starting the installation.
 Double-click on the installer '.exe' file.
@@ -78,7 +78,7 @@ This will place the Sailaway button on the toolbar.
 
 image:1.png[]
 
-=== Using the plugin
+== Using the plugin
 
 Click the plugin button and the dialog will open.
 
@@ -108,7 +108,7 @@ is only downloaded every 10 minutes.This is at the request of the
 developer of Sailaway.
 
 To provide a continuous NMEA feed DR positions are calculated. You can
-disable this but performance will be impacted. +
+disable this but performance will be impacted.
  
 Press the 'Start Server' button to start the feed of sailing data.
 
@@ -147,7 +147,7 @@ image:a.png[]
 
 image:b.png[]
 
-=== TODO:
+== TODO:
 
 {empty}1. Save user name in config.
 
