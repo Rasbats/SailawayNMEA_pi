@@ -60,10 +60,6 @@ SET(SRC
 	    src/SailawayNMEAgui_impl.h
 	    src/NavFunc.h
 	    src/NavFunc.cpp
-		src/tinyxml.cpp
-        src/tinyxmlerror.cpp
-        src/tinyxmlparser.cpp
-        src/tinyxml.h
 		src/InstrumentsData.cpp
 		src/InstrumentsData.h
 		src/NMEASentenceGenerator.cpp
