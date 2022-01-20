@@ -28,7 +28,7 @@
 
 #ifndef DECL_EXP
 #ifdef __WXMSW__
-#  define DECL_EXP     __declspec(dllexport)
+# define DECL_EXP     __declspec(dllexport)
 #else
 # ifdef __GNUC__
 # define DECL_EXP       __attribute__((visibility("default")))
@@ -38,7 +38,7 @@
 
 #ifdef __WXMSW__
 #ifdef MAKING_PLUGIN
-#  define DECL_IMP     __declspec(dllimport)
+# define DECL_IMP     __declspec(dllimport)
 #endif
 #endif    
 
@@ -49,6 +49,7 @@
 #endif // ocpnUSE_SVG
 
 #include <memory>
+#include <wx/dcmemory.h>
 #include <vector>
 
 class wxGLContext;

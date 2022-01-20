@@ -50,9 +50,7 @@ class Dlg;
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
-
 #define SAILAWAYNMEA_TOOL_POSITION    -1          // Request default positioning of toolbar tool
-
 
 class SailawayNMEA_pi : public opencpn_plugin_116
 {
