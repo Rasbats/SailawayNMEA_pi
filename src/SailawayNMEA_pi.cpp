@@ -110,7 +110,7 @@ SailawayNMEA_pi::SailawayNMEA_pi(void *ppimgr)
 {
       // Create the PlugIn icons
       initialize_images();
-      m_panelBitmap = load_plugin("SailawayNMEA_panel_icon", "SailawayNMEA");	 
+      m_panelBitmap = load_plugin("SailawayNMEA_panel_icon", "SailawayNMEA_pi");	 
 	  m_bShowSAILAWAYNMEA = false;
 }
 

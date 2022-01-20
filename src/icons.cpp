@@ -25,7 +25,7 @@ void initialize_images(void)
 #ifdef SailawayNMEA_USE_SVG
 	wxFileName fn;
     wxString tmp_path;
-    tmp_path = GetPluginDataDir("SailawayNMEA_pi.");
+    tmp_path = GetPluginDataDir("SailawayNMEA_pi");
     fn.SetPath(tmp_path);
     fn.AppendDir(_T("data"));
 	fn.SetFullName("SailawayNMEA_pi.svg");

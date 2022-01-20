@@ -29,7 +29,7 @@
 #define OBJECT_H
 
 #include "InstrumentsData.h"
-
+#include "ocpn_plugin.h"
 #include <string.h>
 
 using namespace std;

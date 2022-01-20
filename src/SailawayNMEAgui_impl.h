@@ -62,7 +62,8 @@
 #include <wx/filefn.h>
 #include <wx/filename.h>
 #include <wx/url.h>
-#include "jsoncpp/json/json.h"
+#include "json/reader.h"
+#include "json/writer.h"
 #include "ocpn_plugin.h"
 #include <wx/time.h>
 #include "wx/dir.h"

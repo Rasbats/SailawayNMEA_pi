@@ -29,6 +29,7 @@
 #include <string.h>
 #include <sstream>
 
+
 using namespace std;
 
 NMEASentenceGenerator::NMEASentenceGenerator()
