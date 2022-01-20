@@ -68,7 +68,7 @@ SET(SRC
 
 set(PKG_API_LIB api-16)  #  A directory in libs/ e. g., api-17 or api-16
 
-ADD_DEFINITIONS(-DMAKING_PLUGIN)
+
 
 
 macro(late_init)
@@ -78,6 +78,8 @@ macro(late_init)
   if (SailawayNMEA_USE_SVG)
     target_compile_definitions(${PACKAGE_NAME} PUBLIC SailawayNMEA_USE_SVG)
   endif ()
+
+  add_definitions(-DDECL_IMP)
 
 endmacro ()
 
