@@ -33,8 +33,6 @@
 #	include <wx/wx.h>
 #endif
 
-# define DECL_IMP
-
 extern void initialize_images(void);
 
 extern wxBitmap *_img_SAILAWAYNMEA;
