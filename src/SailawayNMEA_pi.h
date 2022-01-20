@@ -41,12 +41,8 @@
 #include "icons.h"
 #include "SailawayNMEAgui_impl.h"
 
+#include "config.h"
 
-#define     PLUGIN_VERSION_MAJOR    0
-#define     PLUGIN_VERSION_MINOR    2
-
-#define     MY_API_VERSION_MAJOR 1
-#define     MY_API_VERSION_MINOR 16
 
 class Dlg;
 
@@ -103,7 +99,7 @@ public:
 	  
 	  int m_position_menu_id;
 	  
-	
+	 wxBitmap         m_panelBitmap;
 
 private:
       
@@ -128,7 +124,7 @@ private:
 
 	bool             m_bSAILAWAYNMEAShowIcon;
 	bool             m_bShowSAILAWAYNMEA;
-	wxBitmap         m_panelBitmap;
+	
 };
 
 #endif
