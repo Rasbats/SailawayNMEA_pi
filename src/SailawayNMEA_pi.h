@@ -50,7 +50,6 @@ class Dlg;
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
-#define MAKING_PLUGIN
 
 #define SAILAWAYNMEA_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
