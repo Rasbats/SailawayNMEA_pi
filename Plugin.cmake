@@ -77,6 +77,7 @@ macro(late_init)
   endif ()
 
    ADD_DEFINITIONS(-DMAKING_PLUGIN)
+   ADD_DEFINITIONS(-DDECL_IMP)
 endmacro ()
 
 macro(add_plugin_libraries)
