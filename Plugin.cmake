@@ -13,7 +13,7 @@
 # -------- Options ----------
 
 set(OCPN_TEST_REPO
-    "opencpn/shipdriver-alpha"
+    "mike-rossiter/sailawaynmea-alpha"
     CACHE STRING "Default repository for untagged builds"
 )
 set(OCPN_BETA_REPO
