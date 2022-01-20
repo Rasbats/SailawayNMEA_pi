@@ -60,7 +60,6 @@ SET(SRC
 	    src/SailawayNMEAgui_impl.h
 	    src/NavFunc.h
 	    src/NavFunc.cpp
-		src/ocpn_plugin.h
 		src/tinyxml.cpp
         src/tinyxmlerror.cpp
         src/tinyxmlparser.cpp
