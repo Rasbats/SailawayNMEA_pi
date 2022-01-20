@@ -68,6 +68,10 @@ SET(SRC
 
 set(PKG_API_LIB api-16)  #  A directory in libs/ e. g., api-17 or api-16
 
+ADD_DEFINITIONS(-DMAKING_PLUGIN)
+ADD_DEFINITIONS(-DDECL_IMP)
+
+
 macro(late_init)
   # Perform initialization after the PACKAGE_NAME library, compilers
   # and ocpn::api is available.
@@ -76,8 +80,6 @@ macro(late_init)
     target_compile_definitions(${PACKAGE_NAME} PUBLIC SailawayNMEA_USE_SVG)
   endif ()
 
-   ADD_DEFINITIONS(-DMAKING_PLUGIN)
-   ADD_DEFINITIONS(-DDECL_IMP)
 endmacro ()
 
 macro(add_plugin_libraries)
