@@ -77,6 +77,8 @@ macro(late_init)
     target_compile_definitions(${PACKAGE_NAME} PUBLIC SailawayNMEA_USE_SVG)
   endif ()
 
+  add_definitions(-DMAKING_PLUGIN)  
+
 endmacro ()
 
 macro(add_plugin_libraries)

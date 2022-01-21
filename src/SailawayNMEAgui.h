@@ -103,6 +103,7 @@ class DlgDef : public wxFrame
 		wxTimer m_timerData;
 		wxTimer m_timerFeed;
 
+
 		DlgDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("SailawayNMEA"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxCLOSE_BOX|wxFRAME_FLOAT_ON_PARENT|wxFRAME_NO_TASKBAR|wxRESIZE_BORDER|wxSYSTEM_MENU|wxTAB_TRAVERSAL );
 
 		~DlgDef();
