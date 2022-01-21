@@ -164,7 +164,6 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	this->Connect(wxID_ANY, wxEVT_TIMER, wxTimerEventHandler(DlgDef::OnTimerData));
 	this->Connect( wxID_ANY, wxEVT_TIMER, wxTimerEventHandler( DlgDef::OnTimerFeed ) );
 
-	Connect(wxEVT_DOWNLOAD_EVENT, (wxObjectEventFunction)(wxEventFunction)&DlgDef::onDLEvent);
 }
 
 DlgDef::~DlgDef()
@@ -178,6 +177,5 @@ DlgDef::~DlgDef()
 	this->Disconnect(wxID_ANY, wxEVT_TIMER, wxTimerEventHandler(DlgDef::OnTimerData));
 	this->Disconnect( wxID_ANY, wxEVT_TIMER, wxTimerEventHandler( DlgDef::OnTimerFeed ) );
 
-	Disconnect(wxEVT_DOWNLOAD_EVENT, (wxObjectEventFunction)(wxEventFunction)&DlgDef::onDLEvent);
 
 }

@@ -120,8 +120,6 @@ SailawayNMEA_pi::~SailawayNMEA_pi(void)
      
 }
 
-BEGIN_EVENT_TABLE(DlgDef, wxWindow)
-END_EVENT_TABLE()
 
 int SailawayNMEA_pi::Init(void)
 {

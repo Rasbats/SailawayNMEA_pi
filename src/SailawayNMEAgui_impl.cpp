@@ -387,24 +387,8 @@ void Dlg::LoadBoats()
 	wxString tmp_file = wxFileName::CreateTempFileName(""); 
 	
 	_OCPN_DLStatus ret = OCPN_downloadFile(url.BuildURI(), tmp_file,
-		"UKTides", "", wxNullBitmap, this,
-		OCPN_DLDS_ELAPSED_TIME | OCPN_DLDS_ESTIMATED_TIME | OCPN_DLDS_REMAINING_TIME | OCPN_DLDS_SPEED | OCPN_DLDS_SIZE | OCPN_DLDS_CAN_PAUSE | OCPN_DLDS_CAN_ABORT | OCPN_DLDS_AUTO_CLOSE,
+		"", "", wxNullBitmap, this, OCPN_DLDS_AUTO_CLOSE,
 		10);
-
-	if (ret == OCPN_DL_ABORTED) {
-
-		m_status->SetValue("Aborted");
-		return;
-	} else
-
-	if (ret == OCPN_DL_FAILED) {
-		wxMessageBox(_("Download failed.\n\nAre you connected to the Internet?"));
-		m_status->SetValue("No user boats");
-		return;
-	}else
-		m_status->SetValue("Boats for this user are found");
-	
-
 
 	wxString myjson;
 	wxFFile fileData;
