@@ -853,6 +853,7 @@ void Dlg::Init_Datagram_Socket()
 		// at https://forums.wxwidgets.org/viewtopic.php?t=9410
 
   #define SO_BROADCAST    0x0020
+  #define SOL_SOCKET      0xffff
 		
 		static int enabled = 1;
 		m_Listen_Socket->SetOption(SOL_SOCKET, SO_BROADCAST, &enabled, sizeof(enabled));
