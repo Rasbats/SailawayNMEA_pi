@@ -36,13 +36,7 @@ Dlg::Dlg(SailawayNMEA_pi &m_SailawayNMEA_pi, wxWindow* parent):	DlgDef(parent)
 
 {	
 	this->Fit();
-    dbg=false; //for debug output set to true
- 
-	wxString blank_name = *GetpSharedDataLocation()
-		+ "plugins/SailawayNMEA_pi/data/blank.ico";
-
-	wxIcon icon(blank_name, wxBITMAP_TYPE_ICO);
-	SetIcon(icon);
+    dbg=false; //for debug output set to true 		
 
 	wxString myOpenCPNiconsPath = StandardPath();
 	wxString s = wxFileName::GetPathSeparator();	
@@ -851,11 +845,12 @@ void Dlg::Init_Datagram_Socket()
 		// where sockfd is the socket descriptor (See http://linux.die.net/man/2/setsockopt)
 		// See also boxcarmiba Wed Aug 02, 2006
 		// at https://forums.wxwidgets.org/viewtopic.php?t=9410
+		static int enabled = 1;
 
   #define SO_BROADCAST    0x0020
-  #define SOL_SOCKET      0xffff
+
 		
-		static int enabled = 1;
+
 		m_Listen_Socket->SetOption(SOL_SOCKET, SO_BROADCAST, &enabled, sizeof(enabled));
 		///////////////////////////////////////////////////////////////////////////
 
