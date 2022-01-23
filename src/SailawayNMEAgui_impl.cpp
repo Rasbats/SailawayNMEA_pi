@@ -788,8 +788,9 @@ void Dlg::Init_Datagram_Socket()
 	wxSocketBase::Initialize();
 
 	m_LocalAddress.AnyAddress();            // Receive any address (0.0.0.0)
-	const bool success = m_LocalAddress.Hostname(wxGetFullHostName() );
-    if(!success) wxMessageBox(wxT("Error"));
+	//const bool success = 
+	//m_LocalAddress.Hostname(wxGetFullHostName() );
+   // if(!success) wxMessageBox(wxT("Error"));
     wxString ipAddress = m_LocalAddress.IPAddress();
     wxMessageBox("Starting NMEA feed");
     
