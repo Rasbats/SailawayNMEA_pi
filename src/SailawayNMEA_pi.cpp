@@ -76,35 +76,37 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
  *    SVG icon_name.svg is used, otherwise icon_name.png
  */
 
-static wxBitmap load_plugin(const char* icon_name, const char* api_name) {
-    wxBitmap bitmap; 
-    wxFileName fn;
-    auto path = GetPluginDataDir(api_name);
-    fn.SetPath(path);
-    fn.AppendDir("data");
-    fn.SetName(icon_name);
-    wxLogDebug("Loading png icon");
-    fn.SetExt("png");
-    path = fn.GetFullPath();
-    if (!wxImage::CanRead(path)) {
-        wxLogDebug("Initiating image handlers.");
-        wxInitAllImageHandlers();
-    }
-    wxImage panelIcon(path);
-    bitmap = wxBitmap(panelIcon);
-
-    wxLogDebug("Icon loaded, result: %s", bitmap.IsOk() ? "ok" : "fail");
-    return bitmap;
-}
-
-
 
 SailawayNMEA_pi::SailawayNMEA_pi(void *ppimgr)
       :opencpn_plugin_116 (ppimgr)
 {
-      // Create the PlugIn icons
-      initialize_images();
-      m_panelBitmap = load_plugin("SailawayNMEA_panel_icon", "SailawayNMEA_pi");	 
+    // Create the PlugIn icons
+    initialize_images();
+      
+	wxFileName fn;
+
+	wxString path = GetPluginDataDir("SailawayNMEA_pi");
+	fn.SetPath(path);
+	fn.AppendDir("data");
+	fn.SetFullName("SailawayNMEA_panel_icon.png");
+
+	path = fn.GetFullPath();
+    
+    wxInitAllImageHandlers();
+
+	wxLogDebug(wxString("Using icon path: ") + path);
+	if (!wxImage::CanRead(path)) {
+		wxLogDebug("Initiating image handlers.");
+		wxInitAllImageHandlers();
+	}
+
+	wxImage panelIcon(path);
+
+	if (panelIcon.IsOk())
+		m_panelBitmap = wxBitmap(panelIcon);
+	else
+		wxLogMessage(_("    UKTides panel icon has NOT been loaded"));
+
 	  m_bShowSAILAWAYNMEA = false;
 }
 
