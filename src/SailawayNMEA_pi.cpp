@@ -106,7 +106,7 @@ static wxBitmap load_plugin(const char* icon_name, const char* api_name) {
 
 
 SailawayNMEA_pi::SailawayNMEA_pi(void *ppimgr)
-      :opencpn_plugin_117 (ppimgr)
+      :opencpn_plugin_116 (ppimgr)
 {
       // Create the PlugIn icons
       initialize_images();

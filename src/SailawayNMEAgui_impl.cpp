@@ -37,9 +37,6 @@ Dlg::Dlg(SailawayNMEA_pi &m_SailawayNMEA_pi, wxWindow* parent):	DlgDef(parent)
 {	
 	this->Fit();
     dbg=false; //for debug output set to true 		
-
-	wxString myOpenCPNiconsPath = StandardPath();
-	wxString s = wxFileName::GetPathSeparator();	
 }
 
 Dlg::~Dlg()
@@ -317,35 +314,6 @@ void Dlg::OnClose(wxCloseEvent& event)
 {
 	StopServer();
 	plugin->OnSAILAWAYNMEADialogClose();
-}
-
-wxString Dlg::StandardPath()
-{
-	wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
-	wxString s = wxFileName::GetPathSeparator();
-
-#if defined(__WXMSW__)
-	wxString stdPath = std_path.GetConfigDir();
-#elif defined(__WXGTK__) || defined(__WXQT__)
-	wxString stdPath = std_path.GetUserDataDir();
-#elif defined(__WXOSX__)
-	wxString stdPath = (std_path.GetUserConfigDir() + s + "opencpn");
-#endif
-
-	stdPath += s + "plugins" + s + "SAILAWAYNMEA";
-	if (!wxDirExists(stdPath)) 
-		wxMkdir(stdPath);		
-
-#ifdef __WXOSX__	
-	wxString oldPath = (std_path.GetUserConfigDir());
-	if (wxDirExists(oldPath) && !wxDirExists(stdPath)) {
-		wxLogMessage("SailawayNMEA_pi: moving config dir %s to %s", oldPath, stdPath);
-		wxRenameFile(oldPath, stdPath);
-	}
-#endif
-
-	stdPath += s; // is this necessary?
-	return stdPath;
 }
 
 void Dlg::OnLoadBoats(wxCommandEvent& event) 
@@ -845,11 +813,8 @@ void Dlg::Init_Datagram_Socket()
 		// where sockfd is the socket descriptor (See http://linux.die.net/man/2/setsockopt)
 		// See also boxcarmiba Wed Aug 02, 2006
 		// at https://forums.wxwidgets.org/viewtopic.php?t=9410
+
 		static int enabled = 1;
-
-  #define SO_BROADCAST    0x0020
-
-		
 
 		m_Listen_Socket->SetOption(SOL_SOCKET, SO_BROADCAST, &enabled, sizeof(enabled));
 		///////////////////////////////////////////////////////////////////////////

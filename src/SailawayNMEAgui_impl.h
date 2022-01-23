@@ -52,9 +52,6 @@
 #if defined (__APPLE__) && defined (__MACH__)
     #include <sys/types.h>
     #include <sys/socket.h>
-#elif defined (__POSIX__)
-    #include <sys/types.h>
-    #include <sys/socket.h>
 #endif
 
 #include <wx/timer.h>
@@ -128,8 +125,6 @@ public:
 
 	wxString m_default_configuration_path;
 	void AutoSizeHeader(wxListCtrl *const list_ctrl);
-
-	wxString StandardPath();
 
 	void OnLoadBoats(wxCommandEvent& event);
 	void OnLoadBoatData(wxCommandEvent& event);

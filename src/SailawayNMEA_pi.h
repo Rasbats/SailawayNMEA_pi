@@ -52,7 +52,7 @@ class Dlg;
 
 #define SAILAWAYNMEA_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class SailawayNMEA_pi : public opencpn_plugin_117
+class SailawayNMEA_pi : public opencpn_plugin_116
 {
 public:
       SailawayNMEA_pi(void *ppimgr);
