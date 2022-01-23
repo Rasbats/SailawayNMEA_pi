@@ -68,6 +68,7 @@
 #include "wx/sstream.h"
 #include "wx/thread.h"
 #include <wx/progdlg.h>
+#include <wx/utils.h>
 
 
 #define MY_SERVER_PORT 57343
