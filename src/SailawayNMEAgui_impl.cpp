@@ -687,7 +687,7 @@ void Dlg::OnStartServer(wxCommandEvent& event)
 
 	Init_Datagram_Socket();
 	
-	m_timerFeed.Start(10 * 60 * 1000);
+	m_timerFeed.Start(10*60*1000);
 	m_timerData.Start(DEAD_RECKONING_RATE);
 
 	startDR = false;
@@ -780,6 +780,7 @@ void Dlg::NMEASend(wxString myMessage)
 
 void Dlg::Init_Datagram_Socket()
 {
+	/*
 	// wxSocketBase::Initialize() may be necessary for wxWidgets versions
 	// <2.5.x, and for all versions if using secondary threads
 	// See https://wiki.wxwidgets.org/WxSocket
@@ -788,10 +789,9 @@ void Dlg::Init_Datagram_Socket()
 	wxSocketBase::Initialize();
 
 	m_LocalAddress.AnyAddress();            // Receive any address (0.0.0.0)
-	//const bool success = 
-	m_LocalAddress.Hostname(wxGetFullHostName() );
-   // if(!success) wxMessageBox(wxT("Error"));
-   // wxString ipAddress = m_LocalAddress.IPAddress();
+	const bool success = m_LocalAddress.Hostname(wxGetFullHostName() );
+    if(!success) wxMessageBox(wxT("Error"));
+    wxString ipAddress = m_LocalAddress.IPAddress();
     wxMessageBox("Starting NMEA feed");
     
     m_LocalAddress.Service(MY_SERVER_PORT);   // port on which we listen
@@ -830,10 +830,15 @@ void Dlg::Init_Datagram_Socket()
 		// Note: Use EVT_SOCKET(UDP_SOCKET,  BroadcastFrame::OnUDPEvent) in event table
 		m_Listen_Socket->SetEventHandler(*this, UDP_SOCKET);
 	}
+	*/
+
+	// setup socket
+	m_BroadCastAddress.AnyAddress(); // 0.0.0.0
+	m_Listen_Socket = new wxDatagramSocket(m_BroadCastAddress, wxSOCKET_BROADCAST | wxSOCKET_NOBIND);
+
 
 	//Specify a broadcast IP, in this case "Limited Broadcast" on the local network:
-	m_BroadCastAddress.Hostname("255.255.255.255");
-
+	m_BroadCastAddress.BroadcastAddress();  // ("255.255.255.255");
 	m_BroadCastAddress.Service(57343);
 
 }

@@ -199,6 +199,7 @@ private:
 	void OnTimerFeed(wxTimerEvent& event);
 	void NMEASend(wxString myMessage);
 	
+	
 	wxIPV4address m_BroadCastAddress; // For broadcast sending
 	wxIPV4address m_LocalAddress;     // For listening
 	wxDatagramSocket* m_Listen_Socket;
