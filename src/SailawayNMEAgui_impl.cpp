@@ -791,7 +791,7 @@ void Dlg::Init_Datagram_Socket()
 	//const bool success = 
 	m_LocalAddress.Hostname(wxGetFullHostName() );
    // if(!success) wxMessageBox(wxT("Error"));
-    wxString ipAddress = m_LocalAddress.IPAddress();
+   // wxString ipAddress = m_LocalAddress.IPAddress();
     wxMessageBox("Starting NMEA feed");
     
     m_LocalAddress.Service(MY_SERVER_PORT);   // port on which we listen
