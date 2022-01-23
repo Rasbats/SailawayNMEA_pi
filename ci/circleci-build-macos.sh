@@ -23,7 +23,7 @@ rm -rf build-osx  && mkdir build-osx
 # Create a log file.
 exec > >(tee build-osx/build.log) 2>&1
 
-export MACOSX_DEPLOYMENT_TARGET=10.10
+export MACOSX_DEPLOYMENT_TARGET=10.14
 
 # Return latest version of $1, optiomally using option $2
 pkg_version() { brew list --versions $2 $1 | tail -1 | awk '{print $2}'; }
@@ -52,7 +52,7 @@ cmake \
   -DwxWidgets_CONFIG_EXECUTABLE=/tmp/wx315_opencpn50_macos1010/bin/wx-config \
   -DwxWidgets_CONFIG_OPTIONS="--prefix=/tmp/wx315_opencpn50_macos1010" \
   -DCMAKE_INSTALL_PREFIX= \
-  -DCMAKE_OSX_DEPLOYMENT_TARGET=10.10 \
+  -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14 \
   ..
 
 if [[ -z "$CI" ]]; then

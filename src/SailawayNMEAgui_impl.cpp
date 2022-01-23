@@ -687,7 +687,7 @@ void Dlg::OnStartServer(wxCommandEvent& event)
 
 	Init_Datagram_Socket();
 	
-	m_timerFeed.Start(1000);
+	m_timerFeed.Start(10 * 60 * 1000);
 	m_timerData.Start(DEAD_RECKONING_RATE);
 
 	startDR = false;
