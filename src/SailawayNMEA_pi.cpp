@@ -83,12 +83,6 @@ static wxBitmap load_plugin(const char* icon_name, const char* api_name) {
     fn.SetPath(path);
     fn.AppendDir("data");
     fn.SetName(icon_name);
-#ifdef SailawayNMEA_USE_SVG
-    wxLogDebug("Loading SVG icon");
-    fn.SetExt("svg");
-    const static int ICON_SIZE = 48;  // FIXME: Needs size from GUI 
-    bitmap = GetBitmapFromSVGFile(fn.GetFullPath(), ICON_SIZE, ICON_SIZE);
-#else
     wxLogDebug("Loading png icon");
     fn.SetExt("png");
     path = fn.GetFullPath();
@@ -98,7 +92,7 @@ static wxBitmap load_plugin(const char* icon_name, const char* api_name) {
     }
     wxImage panelIcon(path);
     bitmap = wxBitmap(panelIcon);
-#endif
+
     wxLogDebug("Icon loaded, result: %s", bitmap.IsOk() ? "ok" : "fail");
     return bitmap;
 }
