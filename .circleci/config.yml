@@ -14,3 +14,18 @@ version: 2.1
           sh -c "otool -L build-osx/app/*/OpenCPN.app/Contents/PlugIns/*.dylib"
       - run: cd build-osx; /bin/bash < upload.sh
       - run: ci/git-push.sh  build-osx
+
+std-filters: &std-filters
+  filters:
+    branches:
+      ignore:
+        - tmp
+        - /tmp-.*/
+
+workflows:
+  version: 2
+  build_all:
+    jobs:
+
+      - build-macos:
+          <<: *std-filters
