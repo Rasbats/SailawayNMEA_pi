@@ -591,38 +591,14 @@ void Dlg::LoadBoatData()
 
 	}
 
+boat Dlg::FindNewBoatposition(boat drBoat) {
+	boat newbtDR = myBoat;
 
-boat Dlg::FindNewBoatposition(boat drBoat)
-{
-	boat newbtDR;
-	double lat = drBoat.coordLat;
-	double lon = drBoat.coordLon;
-	double hdg = drBoat.heading;
-	double spd = (drBoat.groundSpeed)/60/6; // to change later to allow for download interval
-	double depth = drBoat.depth;
+	double hoursSinceDownload = llElapsedDownloadTime.ToDouble() / (60*60*1000);
+	double distance = myBoat.groundSpeed * hoursSinceDownload;
 
-	//bool destLoxodrome(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2);
-	destLoxodrome(lat, lon, hdg, spd, &newbtDR.coordLat, &newbtDR.coordLon);
-	
-	newbtDR.heading = hdg;
-	newbtDR.magHdg = drBoat.magHdg;
-	newbtDR.waterSpeed = drBoat.waterSpeed;	
-	newbtDR.groundSpeed = drBoat.groundSpeed;
-	//
-	newbtDR.depth = drBoat.depth;
-	newbtDR.TransducerDepth = drBoat.TransducerDepth;
-	//
-	newbtDR.courseOverGround = drBoat.courseOverGround;			
-	newbtDR.magneticCourseOverGround = drBoat.magneticCourseOverGround;
-	//
-	//
-	newbtDR.trueWindSpeed = drBoat.trueWindSpeed;
-	newbtDR.trueWindAngle = drBoat.trueWindAngle;
-	newbtDR.ApparentWindSpeed = drBoat.ApparentWindSpeed;
-	newbtDR.ApparentWindAngle = drBoat.ApparentWindAngle;
-	//
-	//
-	//
+	destLoxodrome(myBoat.coordLat, myBoat.coordLon, myBoat.heading, distance, &newbtDR.coordLat, &newbtDR.coordLon);
+
 	return newbtDR;
 }
 
@@ -690,7 +666,7 @@ void Dlg::OnStartServer(wxCommandEvent& event)
 	useDR = m_checkBoxDR->GetValue();
 
 	LoadBoatData();
-
+	myBoat = drBoat;
 	serverRunning = true;
 
 	Init_Datagram_Socket();
@@ -750,6 +726,7 @@ void Dlg::OnTimerData(wxTimerEvent& event) {
 		llElapsedDownloadTime = m_llTimerDownloadStopTick - m_llTimerDownloadStartTick;
 		if (llElapsedDownloadTime > REQUEST_RATE) {
 			LoadBoatData();
+			myBoat = drBoat;
 			NMEASend(nmea);
 			startDR = false;
 			m_llTimerStartTick = wxGetUTCTimeMillis();
