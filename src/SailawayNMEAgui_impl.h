@@ -81,7 +81,7 @@ enum
 };
 
 #define REQUEST_RATE  600000
-#define DEAD_RECKONING_RATE 1000
+#define DEAD_RECKONING_RATE 10000
 #define MS_TO_KNOTS 1.94384
 
 struct boat

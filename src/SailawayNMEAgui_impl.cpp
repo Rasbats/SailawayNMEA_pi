@@ -598,7 +598,7 @@ boat Dlg::FindNewBoatposition(boat drBoat)
 	double lat = drBoat.coordLat;
 	double lon = drBoat.coordLon;
 	double hdg = drBoat.heading;
-	double spd = (drBoat.waterSpeed)/60/6; // to change later to allow for download interval
+	double spd = (drBoat.groundSpeed)/60/6; // to change later to allow for download interval
 	double depth = drBoat.depth;
 
 	//bool destLoxodrome(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2);
