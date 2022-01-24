@@ -833,8 +833,8 @@ void Dlg::Init_Datagram_Socket()
 	*/
 
 	// setup socket
-	m_BroadCastAddress.AnyAddress(); // 0.0.0.0
-	m_Listen_Socket = new wxDatagramSocket(m_BroadCastAddress, wxSOCKET_BROADCAST | wxSOCKET_NOBIND);
+	m_LocalAddress.AnyAddress(); // 0.0.0.0
+	m_Listen_Socket = new wxDatagramSocket(m_LocalAddress, wxSOCKET_BROADCAST | wxSOCKET_NOBIND);
 
 
 	//Specify a broadcast IP, in this case "Limited Broadcast" on the local network:
