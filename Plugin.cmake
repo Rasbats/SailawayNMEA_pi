@@ -17,12 +17,12 @@ set(OCPN_TEST_REPO
     CACHE STRING "Default repository for untagged builds"
 )
 set(OCPN_BETA_REPO
-    "opencpn/sailawaynmea-beta"
+    "mike-rossiter/sailawaynmea-beta"
     CACHE STRING
     "Default repository for tagged builds matching 'beta'"
 )
 set(OCPN_RELEASE_REPO
-    "opencpn/sailawaynmea-prod"
+    "mike-rossiter/sailawaynmea-prod"
     CACHE STRING
     "Default repository for tagged builds not matching 'beta'"
 )
