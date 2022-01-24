@@ -352,6 +352,14 @@ void Dlg::LoadBoats()
 		"", "", wxNullBitmap, this, OCPN_DLDS_AUTO_CLOSE,
 		10);
 
+	if (ret == OCPN_DL_FAILED) {
+		wxMessageBox(_("Download failed.\n\nAre you connected to the Internet?"));
+		m_status->SetValue("No user boats");
+		return;
+	}else
+		m_status->SetValue("Found boats for this user");
+	
+
 	wxString myjson;
 	wxFFile fileData;
 	fileData.Open(tmp_file, wxT("r"));
