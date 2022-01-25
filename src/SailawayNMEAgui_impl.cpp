@@ -737,8 +737,10 @@ void Dlg::OnTimerData(wxTimerEvent& event) {
 			NMEASend(nmea);
 			startDR = false;
 			m_llTimerStartTick = wxGetUTCTimeMillis();
-			m_status->SetValue("DR Update");
-		}		
+			double sec = llElapsedDownloadTime.ToDouble() / 1000;
+			wxString update = wxString::Format("DR Update: % 2.0f:%02.0f", floor(sec/60), floor(fmod(sec,60)));
+			m_status->SetValue(update);
+		}
 	}
   
 	event.Skip();
