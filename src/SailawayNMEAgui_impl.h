@@ -174,7 +174,7 @@ private:
 
 	wxString key = "757a733e42e9efc9c9bd3b6e503721a4";
 	wxString andusrname = "&usrname=";
-	wxString usrname; //"bats";
+	wxString usrname = "your nickname here";
 	wxString andubtnr = "&ubtnr=";
 	wxString selectedBoat;
 

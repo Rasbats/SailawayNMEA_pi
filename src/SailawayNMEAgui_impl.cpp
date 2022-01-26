@@ -37,6 +37,16 @@ Dlg::Dlg(SailawayNMEA_pi &m_SailawayNMEA_pi, wxWindow* parent):	DlgDef(parent)
 {	
 	this->Fit();
     dbg=false; //for debug output set to true 		
+
+	// load saved usrname, if it exists
+	wxString usrnameLocation = GetPluginDataDir("SailawayNMEA_pi") + "/data/usrname";
+	if (wxFileExists(usrnameLocation)) {
+		wxFFile fp;
+		fp.Open(GetPluginDataDir("SailawayNMEA_pi") +"/data/usrname", wxT("r"));
+		fp.ReadAll(&usrname);
+		fp.Close();
+	}
+	this->m_textCtrlUser->SetValue(usrname);
 }
 
 Dlg::~Dlg()
@@ -332,8 +342,8 @@ void Dlg::LoadBoats()
 
 	wxString key = "757a733e42e9efc9c9bd3b6e503721a4";
 	wxString andusrname = "&usrname=";
-	wxString usrname = m_textCtrlUser->GetValue(); // "bats";
-	if (usrname == "") {
+	wxString usrname = m_textCtrlUser->GetValue();
+	if (usrname == "" || usrname == "your nickname here") {
 		wxMessageBox("No user name entered");
 		return;
 	}
@@ -430,6 +440,11 @@ void Dlg::LoadBoats()
 		root.clear();
 		RequestRefresh(m_parent);
 
+	// save usrname here
+	wxFFile fp;
+	fp.Open(GetPluginDataDir("SailawayNMEA_pi") +"/data/usrname", wxT("w"));
+	fp.Write(usrname);
+	fp.Close();
 }
 
 void Dlg::OnLoadBoatData(wxCommandEvent& event) 
@@ -459,8 +474,8 @@ void Dlg::LoadBoatData()
 	}
 
 	wxString ubtnr = wxString::Format(wxT("%i"), boatnum);  // "134144";
-	
-	if ((ubtnr == "") || (usrname == "" || m_comboBoxBoat->IsTextEmpty())) {
+
+	if ((ubtnr == "") || (usrname == "" || usrname == "your nickname here" || m_comboBoxBoat->IsTextEmpty())) {
 		wxMessageBox("No user name given or ...\n  the boat name is not selected");
 		return;
 	}
